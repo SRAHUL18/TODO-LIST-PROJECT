@@ -38,6 +38,7 @@ const item3 = new Item({
 
 const defaultItems = [item1, item2, item3];
 
+//defining new listSchema for custom lists
 const listSchema = {
   name: String,
   items: [itemsSchema],
@@ -65,6 +66,7 @@ app.get("/", function (req, res) {
   });
 });
 
+//Creating Custom Lists using Express Route Parameters
 app.get("/:customListName", function (req, res) {
   const customListName = _.capitalize(req.params.customListName);
   console.log(customListName);
@@ -112,7 +114,7 @@ app.post("/delete", function (req, res) {
   const checkedItemId = req.body.checkbox;
   const listName = req.body.listName;
   if (listName === day) {
-    Item.findByIdAndDelete(checkedItemId, function (err, docs) {
+    Item.findByIdAndRemove(checkedItemId, function (err, docs) {
       if (!err) {
         res.redirect("/");
       } else {
